@@ -6,19 +6,23 @@
     <link rel="stylesheet" href="stylesheet.css" />
 </head>
 <body>
-    <h1>Welcome to the b10k game!</h1>
-    <span id="level">1</span>
-    <div id="game">
-        <div id="board"></div>
-        <div id="cell-container"></div>
-    </div>
-    <div id="rules">
-        <h2>Rules:</h2>
-        <ol>
-            <li>Press arrow keys to play</li>
-            <li>Your goal is to get the green block in the red spot</li>
-            <li>The green block only stops after hitting other blocks or margins</li>
-        </ol>
+    <div id="container">
+        <h1>Welcome to the b10k game!</h1>
+        <span id="level">1</span>
+        <div id="game">
+            <div id="board"></div>
+            <table id="cell-container">
+                <tbody id="map"></tbody>
+            </table>
+        </div>
+        <div id="rules">
+            <h2>Rules:</h2>
+            <ol>
+                <li>Press arrow keys to play</li>
+                <li>Your goal is to get the green block in the red spot</li>
+                <li>The green block only stops after hitting other blocks or margins</li>
+            </ol>
+        </div>
     </div>
     <script src="game.js"></script>
 </body>

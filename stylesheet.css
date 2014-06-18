@@ -1,0 +1,62 @@
+﻿body {
+    background-color:beige;
+    font-family:Helvetica, Arial, sans-serif;
+}
+#container {
+    margin-left:30vw;
+}
+#level::before {
+    content: 'level ';
+}
+#game {
+    position:absolute;
+    background-color:lightgray;
+    border-radius:20px;
+    margin-left:-5vw;
+    width:45vw;
+    height:45vw;
+}
+#cell-container {
+    width:40vw;
+    height:40vw;
+    margin:2.5vw;
+    background-color:azure;
+    border-radius:10px;
+}
+#cell-container td {
+    position:absolute;
+}
+#rules {
+    margin-top:60vw;
+}
+#player {
+    background-color:green;
+    margin:1vw;
+    width:2vw;
+    height:2vw;
+    transition:top 0.4s, left 0.4s;
+    border-radius:2px;
+}
+.wall {
+    background-color:gray;
+    width:4vw;
+    height:4vw;
+}
+.bottom-left{
+    border-bottom-left-radius:9px;
+}
+.bottom-right {
+    border-bottom-right-radius:9px;
+}
+.top-left {
+    border-top-left-radius: 9px;
+}
+.top-right {
+    border-top-right-radius:9px;
+}
+#goal {
+    background-color:red;
+    border-radius:3px;
+    width:4vw;
+    height:4vw;
+}
