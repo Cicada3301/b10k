@@ -1,8 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8" />
+    <title>b10k - towc</title>
+    <link rel="stylesheet" href="stylesheet.css" />
 </head>
 <body>
+    <h1>Welcome to the b10k game!</h1>
+    <span id="level">1</span>
+    <div id="game">
+        <div id="board"></div>
+        <div id="cell-container"></div>
+    </div>
+    <div id="rules">
+        <h2>Rules:</h2>
+        <ol>
+            <li>Press arrow keys to play</li>
+            <li>Your goal is to get the green block in the red spot</li>
+            <li>The green block only stops after hitting other blocks or margins</li>
+        </ol>
+    </div>
+    <script src="game.js"></script>
 </body>
 </html>
