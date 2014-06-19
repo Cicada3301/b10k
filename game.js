@@ -1,7 +1,7 @@
 ﻿//function b10k() {
     var player,
-        inGame = true;
-        currentLevel=0;
+        inGame = true,
+        currentLevel=0,
         boardSide = 40,
         boardMargin = 2.5;
     function Level(map, name) {
@@ -17,17 +17,38 @@
         this.container = container;
         this.el = document.getElementById('player');
         this.render();
+        this.nextMove =false;
+        this.moving = false;
+    }
+    Player.prototype.handleMove = function (dir) {
+        console.log(this.moving);
+        if (this.moving) {
+            this.nextMove = dir;
+        } else {
+            this.move(dir);
+        }
+    };
+    Player.prototype.useNextMove = function () {
+        console.log(this.nextMove);
+        if (this.nextMove) {
+            var nextMove = { x: this.nextMove.x, y: this.nextMove.y };
+            this.nextMove = false;
+            this.move(nextMove);
+        }
     }
     Player.prototype.move = function (dir) {
         if (!inGame) return false;
         var nextBlock =  this.map[this.y + dir.y]? this.map[this.y+dir.y][this.x + dir.x]:undefined;
         if (nextBlock !== undefined && nextBlock !== 1) {
+            this.moving = true;
             if (nextBlock === 2) this.level.win();
             this.x += dir.x;
-            this.y += dir.y
+            this.y += dir.y;
             this.move(dir);
         } else {
             this.render();
+            window.setTimeout(player.useNextMove, 400);
+            this.moving=false;
         }
     }
     Player.prototype.render = function () {
@@ -41,7 +62,7 @@
     Level.prototype.win = function () {
         inGame = false;
         var mask = document.getElementById('mask');
-        mask.style.setProperty('background-color', 'beige');
+        mask.style.setProperty('background-color', 'lightyellow');
         mask.style.setProperty('color', 'black');
         ++currentLevel;
         if (levels[currentLevel]) {
@@ -123,10 +144,10 @@
     document.addEventListener('keydown', function (e) {
         var isKey = true;
         switch (e.keyCode) {
-            case 37: player.move({x:-1, y:0}); break;
-            case 38: player.move({x:0, y:-1}); break;
-            case 39: player.move({x:1, y:0}); break;
-            case 40: player.move({x:0, y:1}); break;
+            case 37: player.handleMove({x:-1, y:0}); break;
+            case 38: player.handleMove({x:0, y:-1}); break;
+            case 39: player.handleMove({x:1, y:0}); break;
+            case 40: player.handleMove({x:0, y:1}); break;
             default: isKey = false;
         }
         if (isKey) {
