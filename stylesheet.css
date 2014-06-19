@@ -61,3 +61,15 @@
     width:3vw;
     height:3vw;
 }
+#mask {
+    position:absolute;
+    border-radius:20px;
+    margin-left:-5vw;
+    width:45vw;
+    height:45vw;
+    transition:background-color 1s, color 6s;
+    z-index:2;
+    font-size:3em;
+    padding:2.5vw;
+    text-align:center;
+}
