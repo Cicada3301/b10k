@@ -21,7 +21,6 @@
         this.moving = false;
     }
     Player.prototype.handleMove = function (dir) {
-        console.log(this.moving);
         if (this.moving) {
             this.nextMove = dir;
         } else {
@@ -29,7 +28,6 @@
         }
     };
     Player.prototype.useNextMove = function () {
-        console.log(this.nextMove);
         if (this.nextMove) {
             var nextMove = { x: this.nextMove.x, y: this.nextMove.y };
             this.nextMove = false;
@@ -41,14 +39,16 @@
         var nextBlock =  this.map[this.y + dir.y]? this.map[this.y+dir.y][this.x + dir.x]:undefined;
         if (nextBlock !== undefined && nextBlock !== 1) {
             this.moving = true;
-            if (nextBlock === 2) this.level.win();
             this.x += dir.x;
             this.y += dir.y;
             this.move(dir);
         } else {
             this.render();
-            window.setTimeout(player.useNextMove, 400);
-            this.moving=false;
+            window.setTimeout(function () {
+                if (player.map[player.y][player.x] === 2) player.level.win();
+                player.moving = false;
+                player.useNextMove();
+            }, 200);
         }
     }
     Player.prototype.render = function () {
@@ -70,30 +70,25 @@
             levels[currentLevel].play();
             mask.style.setProperty('background-color', 'transparent');
             mask.style.setProperty('color', 'transparent');
-            player.move({ x: 0, y: 0 });
             inGame = true;
         } else {
             mask.innerHTML = 'You won the game!<br><button id="restart">Restart</button>';
             document.getElementById('restart').addEventListener('click', function () {
-                currentLevel = 0;
-                mask.innerHTML = 'Level ' + currentLevel + '<br>' + levels[currentLevel].name;
-                levels[0].play();
-                mask.style.setProperty('background-color', 'transparent');
-                mask.style.setProperty('color', 'transparent');
-                player.move({ x: 0, y: 0 });
-                inGame = true;
+                window.location.href += '';
             })
         }
+        document.getElementById('level').innerHTML = currentLevel + ' - ' + levels[currentLevel].name;
+        player.render();
     }
     Level.prototype.adjustElements = function () {
-        var player = document.getElementById('player');
-        player.style.setProperty('width', (boardSide/2 / this.size) + 'vw');
-        player.style.setProperty('height', (boardSide/2 / this.size) + 'vw');
-        player.style.setProperty('margin', (boardSide/4 / this.size) + 'vw');
+        player.el.style.setProperty('width', (boardSide/2 / this.size) + 'vw');
+        player.el.style.setProperty('height', (boardSide/2 / this.size) + 'vw');
+        player.el.style.setProperty('margin', (boardSide / 4 / this.size) + 'vw');
         var goal = document.getElementById('goal');
         goal.style.setProperty('width', (boardSide/2 / this.size) + 'vw');
         goal.style.setProperty('height', (boardSide/2 / this.size) + 'vw');
-        goal.style.setProperty('margin', (boardSide/4 / this.size) + 'vw');
+        goal.style.setProperty('margin', (boardSide / 4 / this.size) + 'vw');
+        
     }
     Level.prototype.render = function (container) {
         container.innerHTML = '';
@@ -138,7 +133,15 @@
             [0, 0, 1, 0, 0],
             [1, 0, 0, 1, 0],
             [0, 0, 3, 1, 0]
-        ], 'still too easy?')
+        ], 'still too easy?'),
+        new Level([
+            [2, 0, 1, 0, 0, 0],
+            [1, 0, 0, 0, 1, 0],
+            [3, 1, 0, 0, 0, 1],
+            [0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0]
+        ], 'not even a challenge, right?')
     ];
     levels[0].play();
     document.addEventListener('keydown', function (e) {

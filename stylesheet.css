@@ -34,7 +34,7 @@
     margin:1vw;
     width:2vw;
     height:2vw;
-    transition:top 0.4s, left 0.4s;
+    transition:top 0.3s, left 0.3s;
     border-radius:2px;
     position:absolute;
 }
