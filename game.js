@@ -67,9 +67,11 @@
         ++currentLevel;
         if (levels[currentLevel]) {
             mask.innerHTML = 'Level ' + currentLevel + '<br>' + levels[currentLevel].name;
-            levels[currentLevel].play();
-            mask.style.setProperty('background-color', 'transparent');
-            mask.style.setProperty('color', 'transparent');
+            window.setTimeout(function () {
+                levels[currentLevel].play();
+                mask.style.setProperty('background-color', 'transparent');
+                mask.style.setProperty('color', 'transparent');
+            }, 2000);
             inGame = true;
         } else {
             mask.innerHTML = 'You won the game!<br><button id="restart">Restart</button>';
