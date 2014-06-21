@@ -1,0 +1,23 @@
+﻿body {
+    background-color:beige;
+}
+td {
+    width:30px;
+    height:30px;
+    background-color:azure;
+}
+.wall {
+    background-color:gray;
+}
+.player {
+    background-color:green;
+}
+.goal {
+    background-color:red;
+}
+td:hover {
+    cursor:pointer;
+}
+#dev {
+    font-size:100px;
+}

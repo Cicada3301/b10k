@@ -1,7 +1,8 @@
-﻿//function b10k() {
+﻿function b10k() {
     var player,
         inGame = true,
-        currentLevel=0,
+        currentLevel = 0,
+        currentLevelObject,
         boardSide = 40,
         boardMargin = 2.5;
     function Level(map, name) {
@@ -62,17 +63,18 @@
     Level.prototype.win = function () {
         inGame = false;
         var mask = document.getElementById('mask');
-        mask.style.setProperty('background-color', 'lightyellow');
-        mask.style.setProperty('color', 'black');
+        mask.style.setProperty('opacity', '1');
         ++currentLevel;
         if (levels[currentLevel]) {
-            mask.innerHTML = 'Level ' + currentLevel + '<br>' + levels[currentLevel].name;
+            currentLevelObject = levels[currentLevel];
+            mask.innerHTML = 'Level ' + currentLevel + '<br>' + currentLevelObject.name;
+            window.setTimeout(function () { currentLevelObject.play() }, 500);
             window.setTimeout(function () {
-                levels[currentLevel].play();
-                mask.style.setProperty('background-color', 'transparent');
-                mask.style.setProperty('color', 'transparent');
-            }, 2000);
-            inGame = true;
+                window.setTimeout(function () {
+                    mask.style.setProperty('opacity', '0');
+                }, 500);
+                inGame = true;
+            }, 1000);
         } else {
             mask.innerHTML = 'You won the game!<br><button id="restart">Restart</button>';
             document.getElementById('restart').addEventListener('click', function () {
@@ -143,7 +145,20 @@
             [0, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [1, 0, 0, 0, 0, 0]
-        ], 'not even a challenge, right?')
+        ], 'not even a challenge, right?')//,
+        /*new Level([
+                [0,0,0,0,0,0,0,0,0,0],
+                [1,0,0,0,0,0,0,0,0,0],
+                [1,1,0,0,1,1,1,3,0,0],
+                [1,1,1,0,0,1‌​,2,1,0,0],
+                [1,1,0,0,0,0,0,1,0,0],
+                [0,1,0,0,0,0,0,0,0,1],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,‌​0,0,0,0,0,0,1,0],
+                [0,0,0,1,0,0,0,0,0,0],
+                [0,0,1,1,1,1,1,1,0,0]
+            ],'by kendall')
+        ]*/
     ];
     levels[0].play();
     document.addEventListener('keydown', function (e) {
@@ -160,5 +175,19 @@
         }
 
     })
-//};
-//b10k();
+    function playCustomLevel() {
+        var map = prompt('insert map code');
+        var mapSide = Math.sqrt(map.length, 2);
+        map = map.split('');
+        var decodedMap=[];
+        for (var i = 0; i < map.length; ++i) {
+            if (i % mapSide === 0) decodedMap.push([]);
+            console.log([i, (i / mapSide) | 0, decodedMap]);
+            decodedMap[(i/mapSide) | 0].push(parseInt(map[i]));
+        }
+        (new Level(decodedMap, 'custom level')).play();
+    }
+    document.getElementById('play').addEventListener('click', function () { playCustomLevel() });
+    document.getElementById('restart').addEventListener('click', function () { currentLevelObject.play();})
+};
+b10k();

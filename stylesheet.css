@@ -1,9 +1,13 @@
-﻿body {
+﻿body, button {
     background-color:beige;
     font-family:Helvetica, Arial, sans-serif;
 }
 #container {
     margin-left:30vw;
+}
+#level {
+    margin-bottom:10px;
+    font-weight:bold;
 }
 #level::before {
     content: 'level ';
@@ -26,8 +30,28 @@
 #cell-container td {
     position:absolute;
 }
+#buttons {
+    margin-top:50vw;
+}
+button {
+    width:12vw;
+    height:60px;
+    text-align:center;
+    background-color:brown;
+    border-radius:3px;
+    border-color:transparent;
+    font-size:25px;
+    cursor:pointer;
+}
+button:hover{
+    background-color:coral;
+}
+button:focus {
+    outline:0 !important;
+    background-color:lightcoral;
+}
 #rules {
-    margin-top:60vw;
+    margin-top:10vw;
 }
 #player {
     background-color:green;
@@ -67,9 +91,18 @@
     margin-left:-5vw;
     width:45vw;
     height:45vw;
-    transition:background-color 1s, color 4s;
+    transition:opacity 0.5s;
+    opacity:0;
     z-index:2;
     font-size:3em;
     padding:2.5vw;
     text-align:center;
+    background-color:lightyellow;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+a:visited{
+    color:none;
 }
